@@ -1,14 +1,26 @@
 import {sql} from './dbNeon.js'
-import randomUUID from 'crypto'
+import {randomUUID} from 'node:crypto'
 
 export class DatabasePostgres{
-  async list () {
+  async list (search) {
+    let games
+
+    if(search){
+      games = await sql`
+        select * from games where tite ilike ${"%" + search + "%"}
+      `
+    } else {
+      games = await sql`select * from games`
+    }
+
+    return games
+
 
   } 
 
-  async create (video) {
+  async create (game) {
     const gameId = randomUUID()
-    const {title, description, imgUrl, qtdPlayers, price} = video
+    const {title, description, imgUrl, qtdPlayers, price} = game
 
     await sql`
       insert into games (id, title, description, imgUrl, qtdPlayers, price) VALUES (${gameId}, ${title},${description},${imgUrl}, ${qtdPlayers} ${price})

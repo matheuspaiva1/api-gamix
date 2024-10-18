@@ -4,7 +4,12 @@ Content-Type: application/json
 {
   "title": "Valorant",
   "description": "Jogo de FPS",
-  "imgUrl": "",
-  "qtdPlayers": "20.000",
+  "imgUrl": "link",
+  "qtdPlayers": "32.000",
   "price": "Gratuito"
 }
+
+###
+GET http://localhost:3000/games?search=Valorant
+
+
